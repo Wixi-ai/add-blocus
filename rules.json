@@ -7,7 +7,12 @@
     },
     "condition": {
       "urlFilter": "||doubleclick.net^",
-      "resourceTypes": ["script", "image", "xmlhttprequest", "sub_frame"]
+      "resourceTypes": [
+        "script",
+        "image",
+        "xmlhttprequest",
+        "sub_frame"
+      ]
     }
   },
   {
@@ -18,7 +23,12 @@
     },
     "condition": {
       "urlFilter": "||googleadservices.com^",
-      "resourceTypes": ["script", "image", "xmlhttprequest", "sub_frame"]
+      "resourceTypes": [
+        "script",
+        "image",
+        "xmlhttprequest",
+        "sub_frame"
+      ]
     }
   },
   {
@@ -29,7 +39,11 @@
     },
     "condition": {
       "urlFilter": "||yandex.ru/ads/*",
-      "resourceTypes": ["script", "image", "xmlhttprequest"]
+      "resourceTypes": [
+        "script",
+        "image",
+        "xmlhttprequest"
+      ]
     }
   },
   {
@@ -40,7 +54,12 @@
     },
     "condition": {
       "urlFilter": "||adfox.ru^",
-      "resourceTypes": ["script", "image", "xmlhttprequest", "sub_frame"]
+      "resourceTypes": [
+        "script",
+        "image",
+        "xmlhttprequest",
+        "sub_frame"
+      ]
     }
   },
   {
@@ -51,7 +70,11 @@
     },
     "condition": {
       "urlFilter": "*://*.amazon-adsystem.com/*",
-      "resourceTypes": ["script", "image", "xmlhttprequest"]
+      "resourceTypes": [
+        "script",
+        "image",
+        "xmlhttprequest"
+      ]
     }
   }
 ]
