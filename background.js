@@ -1,3 +1,15 @@
+
+/*
+Пользователь заходит на сайт → Браузер пытается загрузить doubleclick.net/ads.js
+                                    ↓
+                    Chrome проверяет правила declarativeNetRequest
+                                    ↓
+                      Находит правило с urlFilter "||doubleclick.net^"
+                                    ↓
+                     Запрос УНИЧТОЖАЕТСЯ до отправки на сервер
+                                    ↓
+                      Страница получает ошибку загрузки, рекламы нет
+*/
 const MAX_RULES = 5000;
 let blockedCount = 0;
 
@@ -11,7 +23,7 @@ chrome.runtime.onInstalled.addListener(async () => {
 
   console.log('Прометей AdBlock активирован');
 });
-
+// механика подсчета блокировок(в google больше не работает, просто показываю что можно и так)
 chrome.declarativeNetRequest.onRuleMatchedDebug?.addListener(
   (info) => {
     chrome.storage.local.get('blockedCount', (data) => {

@@ -3,44 +3,110 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="popup.css">
 </head>
 
 <body>
-  <div class="container">
-    <header>
-      <img src="../icons/icon48.png" alt="logo">
-      <h1>Прометей AdBlock</h1>
-    </header>
-
-    <div class="status-section">
-      <label class="switch">
-        <input type="checkbox" id="toggle-blocking">
-        <span class="slider"></span>
-      </label>
-      <span id="status-text">Активен</span>
+  <div class="glass-container">
+    <!-- Шапка компактная -->
+    <div class="header">
+      <div class="logo-wrapper">
+        <div class="logo-glow"></div>
+        <i class="fas fa-shield-halbed"></i>
+      </div>
+      <div class="header-text">
+        <h1>Прометей<span class="badge">MV3</span></h1>
+        <p class="subtitle">Блокировщик рекламы</p>
+      </div>
+      <div class="status-indicator" id="status-indicator"></div>
     </div>
 
-    <div class="stats">
-      <div class="stat-item">
-        <span class="stat-label">Заблокировано:</span>
-        <span class="stat-value" id="blocked-count">0</span>
+    <!-- Переключатель компактный -->
+    <div class="power-card">
+      <div class="power-switch-container">
+        <span class="power-label">Защита</span>
+        <label class="power-switch">
+          <input type="checkbox" id="toggle-blocking">
+          <span class="power-slider">
+            <i class="fas fa-power-off"></i>
+          </span>
+        </label>
+      </div>
+      <div class="power-stats" id="status-text">Активен</div>
+    </div>
+
+    <!-- СТАТИСТИКА В ОДНУ СТРОКУ -->
+    <div class="stats-row">
+      <div class="stat-block">
+        <i class="fas fa-ban stat-icon-small"></i>
+        <div class="stat-block-info">
+          <span class="stat-block-label">Заблокировано</span>
+          <span class="stat-block-value" id="blocked-count">0</span>
+        </div>
+      </div>
+
+      <div class="stat-divider"></div>
+
+      <div class="stat-block">
+        <i class="fas fa-shield-alt stat-icon-small"></i>
+        <div class="stat-block-info">
+          <span class="stat-block-label">Правил</span>
+          <span class="stat-block-value" id="rules-count">5</span>
+        </div>
+      </div>
+
+      <div class="stat-divider"></div>
+
+      <div class="stat-block">
+        <i class="fas fa-user-lock stat-icon-small"></i>
+        <div class="stat-block-info">
+          <span class="stat-block-label">Моих</span>
+          <span class="stat-block-value" id="custom-rules-count">0</span>
+        </div>
       </div>
     </div>
 
-    <div class="manual-block">
-      <h3>Блокировка по домену</h3>
-      <div class="domain-input">
-        <input type="text" id="domain" placeholder="example.com">
-        <button id="add-domain">+</button>
+    <!-- Блокировка по домену -->
+    <div class="section">
+      <div class="section-header">
+        <i class="fas fa-globe"></i>
+        <h3>Добавить домен в черный список</h3>
       </div>
-      <div id="custom-rules-list"></div>
+
+      <div class="domain-input-container">
+        <i class="fas fa-search input-icon"></i>
+        <input type="text" id="domain" placeholder="example.com" class="domain-input">
+        <button id="add-domain" class="add-btn">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
     </div>
 
-    <footer>
-      <button id="open-settings">Настройки</button>
-      <span>v1.0.0</span>
-    </footer>
+    <!-- СПИСОК ПРАВИЛ (ТЕПЕРЬ ПОД СТАТИСТИКОЙ) -->
+    <div class="rules-section">
+      <div class="rules-header">
+        <span><i class="fas fa-list"></i> Мои заблокированные домены</span>
+      </div>
+      <div id="custom-rules-list" class="rules-list">
+        <!-- Сюда будут добавляться правила -->
+      </div>
+    </div>
+
+    <!-- Футер -->
+    <div class="footer">
+      <button id="open-settings" class="footer-btn">
+        <i class="fas fa-cog"></i>
+      </button>
+      <button id="open-stats" class="footer-btn">
+        <i class="fas fa-chart-line"></i>
+      </button>
+      <div class="version">
+        <i class="fas fa-code-branch"></i>
+        <span>1.0</span>
+      </div>
+    </div>
   </div>
   <script src="popup.js"></script>
 </body>
