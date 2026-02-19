@@ -3,21 +3,24 @@ const AD_SELECTORS = [
   '[class*="banner"]', '[id*="banner"]',
   '[class*="promo"]', '[id*="promo"]',
   '[class*="popup"]', '[id*="popup"]',
+  '[class*="overlay"]', '[id*="overlay"]',
+  '[class*="modal"]', '[id*="modal"]',
   '.yandex-rtb',
   '.yandex-ad',
   '[class*="yandex_rtb"]',
   '[id*="yandex_rtb"]',
   'ins.adsbygoogle',
   '[id*="google_ads"]',
-  'iframe[src*="googleads"]',
+  'iframe[src*="doubleclick"]',
+  'iframe[src*="yandex"]',
+  'iframe[src*="adfox"]',
+  'iframe[src*="criteo"]',
   '.fb-like',
   '.twitter-share-button',
   '.vkontakte-share',
   '.cookie-notice',
   '.gdpr',
-  '.modal-dialog',
-  'iframe[src=""]',
-  'iframe:empty'
+  '.cookie-banner'
 ];
 
 const AD_HIDE_CSS = AD_SELECTORS.join(', ') + ' { display: none !important; }';
@@ -34,13 +37,8 @@ function removeAds() {
       try {
         const elements = document.querySelectorAll(selector);
         elements.forEach(el => {
-          if (!el.closest('header') && !el.closest('nav')) {
+          if (!el.closest('header') && !el.closest('nav') && !el.closest('main')) {
             el.remove();
-
-            chrome.runtime.sendMessage({
-              type: 'elementBlocked',
-              selector: selector
-            });
           }
         });
       } catch (e) {

@@ -11,7 +11,6 @@
                       Страница получает ошибку загрузки, рекламы нет
 */
 const MAX_RULES = 5000;
-let blockedCount = 0;
 
 chrome.runtime.onInstalled.addListener(async () => {
   await chrome.storage.local.set({ blockedCount: 0 });
@@ -20,21 +19,17 @@ chrome.runtime.onInstalled.addListener(async () => {
   if (settings.enabled === undefined) {
     await chrome.storage.local.set({ enabled: true });
   }
-
-  console.log('Прометей AdBlock активирован');
 });
-// механика подсчета блокировок(в google больше не работает, просто показываю что можно и так)
-chrome.declarativeNetRequest.onRuleMatchedDebug?.addListener(
-  (info) => {
-    chrome.storage.local.get('blockedCount', (data) => {
-      const newCount = (data.blockedCount || 0) + 1;
-      chrome.storage.local.set({ blockedCount: newCount });
 
-      chrome.action.setBadgeText({ text: newCount.toString() });
-      chrome.action.setBadgeBackgroundColor({ color: '#FF0000' });
-    });
-  }
-);
+chrome.declarativeNetRequest.onRuleMatchedDebug?.addListener((info) => {
+  chrome.storage.local.get('blockedCount', (data) => {
+    const newCount = (data.blockedCount || 0) + 1;
+    chrome.storage.local.set({ blockedCount: newCount });
+
+    chrome.action.setBadgeText({ text: newCount.toString() });
+    chrome.action.setBadgeBackgroundColor({ color: '#E53935' });
+  });
+});
 
 async function addUserRule(domain) {
   const rules = await chrome.declarativeNetRequest.getDynamicRules();
@@ -42,8 +37,6 @@ async function addUserRule(domain) {
     ? Math.max(...rules.map(r => r.id)) + 1
     : 1000;
 
-  //Принцип: Пользователь вводит домен в интерфейсе → расширение создает новое правило и добавляет его в динамический набор Chrome.
-  // Правила хранятся не в файлах, а во внутреннем индексе браузера.
   const newRule = {
     id: nextId,
     priority: 2,

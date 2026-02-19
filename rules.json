@@ -76,5 +76,36 @@
         "xmlhttprequest"
       ]
     }
+  },
+  {
+    "id": 6,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||adriver.ru^",
+      "resourceTypes": [
+        "script",
+        "image",
+        "xmlhttprequest",
+        "sub_frame"
+      ]
+    }
+  },
+  {
+    "id": 7,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||criteo.com^",
+      "resourceTypes": [
+        "script",
+        "image",
+        "xmlhttprequest"
+      ]
+    }
   }
 ]
