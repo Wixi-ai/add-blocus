@@ -10,7 +10,6 @@
 
 <body>
   <div class="glass-container">
-    <!-- Шапка -->
     <div class="header">
       <div class="logo-wrapper">
         <div class="logo-glow"></div>
@@ -23,7 +22,6 @@
       <div class="status-indicator" id="status-indicator"></div>
     </div>
 
-    <!-- Переключатель -->
     <div class="power-card">
       <div class="power-switch-container">
         <span class="power-label">Защита</span>
@@ -37,73 +35,19 @@
       <div class="power-stats" id="status-text">Активен</div>
     </div>
 
-    <!-- Статистика в строку -->
-    <div class="stats-row">
-      <div class="stat-block">
-        <i class="fas fa-ban stat-icon-small"></i>
-        <div class="stat-block-info">
-          <span class="stat-block-label">Заблокировано</span>
-          <span class="stat-block-value" id="blocked-count">0</span>
-        </div>
-      </div>
-
-      <div class="stat-divider"></div>
-
-      <div class="stat-block">
-        <i class="fas fa-shield-alt stat-icon-small"></i>
-        <div class="stat-block-info">
-          <span class="stat-block-label">Правил</span>
-          <span class="stat-block-value" id="rules-count">7</span>
-        </div>
-      </div>
-
-      <div class="stat-divider"></div>
-
-      <div class="stat-block">
-        <i class="fas fa-user-lock stat-icon-small"></i>
-        <div class="stat-block-info">
-          <span class="stat-block-label">Моих</span>
-          <span class="stat-block-value" id="custom-rules-count">0</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Блокировка по домену -->
     <div class="section">
       <div class="section-header">
-        <i class="fas fa-globe"></i>
-        <h3>Добавить домен</h3>
+        <i class="fas fa-info-circle"></i>
+        <h3>О расширении</h3>
       </div>
-
-      <div class="domain-input-container">
-        <i class="fas fa-search input-icon"></i>
-        <input type="text" id="domain" placeholder="example.com" class="domain-input">
-        <button id="add-domain" class="add-btn">
-          <i class="fas fa-plus"></i>
-        </button>
-      </div>
+      <p style="color: #ccc; font-size: 12px; margin: 0;">
+        Блокирует рекламу по ключевым словам и доменам
+      </p>
     </div>
 
-    <!-- Список правил -->
-    <div class="rules-section">
-      <div class="rules-header">
-        <span><i class="fas fa-list"></i> Мои домены</span>
-      </div>
-      <div id="custom-rules-list" class="rules-list">
-        <div class="empty-rules">
-          <i class="fas fa-info-circle"></i>
-          <span>Нет заблокированных доменов</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Футер -->
     <div class="footer">
       <button id="open-settings" class="footer-btn">
         <i class="fas fa-cog"></i>
-      </button>
-      <button id="open-stats" class="footer-btn">
-        <i class="fas fa-chart-line"></i>
       </button>
       <div class="version">
         <i class="fas fa-code-branch"></i>

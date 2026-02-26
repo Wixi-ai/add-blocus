@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Прометей: Блокировщик рекламы",
   "version": "1.0.0",
-  "description": "Курсовой проект: современный adblock на MV3",
+  "description": "Блокировка рекламы на сайтах",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
@@ -10,9 +10,7 @@
   },
   "permissions": [
     "declarativeNetRequest",
-    "storage",
-    "activeTab",
-    "scripting"
+    "storage"
   ],
   "host_permissions": [
     "*://*/*"
