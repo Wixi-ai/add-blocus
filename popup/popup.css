@@ -18,7 +18,7 @@ body {
   background: #0f0f15;
   border-radius: 24px;
   margin: 8px;
-  border: 1px solid rgba(229, 57, 53, 0.2);
+  border: 1px solid rgba(79, 91, 255, 0.2);
 }
 
 .header {
@@ -41,7 +41,7 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #E53935, #B71C1C);
+  background: linear-gradient(135deg, #4f5bff, #9f7aea);
   border-radius: 14px;
   filter: blur(10px);
   opacity: 0.5;
@@ -58,10 +58,10 @@ body {
   color: white;
   position: relative;
   z-index: 2;
-  background: linear-gradient(135deg, #E53935, #B71C1C);
+  background: linear-gradient(135deg, #4f5bff, #9f7aea);
   padding: 11px;
   border-radius: 14px;
-  box-shadow: 0 10px 20px -5px rgba(229, 57, 53, 0.5);
+  box-shadow: 0 10px 20px -5px rgba(79, 91, 255, 0.5);
 }
 
 .header-text h1 {
@@ -73,13 +73,14 @@ body {
 }
 
 .badge {
-  background: linear-gradient(135deg, #E53935, #B71C1C);
+  background: linear-gradient(135deg, #4f5bff, #9f7aea);
   padding: 3px 8px;
   border-radius: 20px;
   font-size: 10px;
   font-weight: 600;
   color: white;
   margin-left: 6px;
+  -webkit-text-fill-color: white;
 }
 
 .subtitle {
@@ -105,7 +106,7 @@ body {
   border-radius: 20px;
   padding: 12px 16px;
   margin-bottom: 20px;
-  border: 1px solid rgba(229, 57, 53, 0.15);
+  border: 1px solid rgba(79, 91, 255, 0.15);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -145,7 +146,7 @@ body {
   bottom: 0;
   background: #2a2a35;
   border-radius: 34px;
-  border: 1px solid rgba(229, 57, 53, 0.2);
+  border: 1px solid rgba(79, 91, 255, 0.2);
   display: flex;
   align-items: center;
   padding: 0 3px;
@@ -164,9 +165,10 @@ body {
   width: 24px;
   left: 2px;
   bottom: 1px;
-  background: linear-gradient(135deg, #E53935, #B71C1C);
+  background: linear-gradient(135deg, #4f5bff, #9f7aea);
   border-radius: 50%;
   transition: 0.3s;
+  box-shadow: 0 2px 10px rgba(79, 91, 255, 0.5);
 }
 
 input:checked + .power-slider:before {
@@ -181,9 +183,64 @@ input:checked + .power-slider i {
 .power-stats {
   font-size: 13px;
   font-weight: 600;
-  background: linear-gradient(135deg, #E53935, #B71C1C);
+  background: linear-gradient(135deg, #4f5bff, #9f7aea);
   padding: 5px 14px;
   border-radius: 30px;
+  box-shadow: 0 5px 15px -5px rgba(79, 91, 255, 0.5);
+}
+
+.stats-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: #14141c;
+  border-radius: 20px;
+  padding: 12px 8px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(79, 91, 255, 0.15);
+}
+
+.stat-block {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  justify-content: center;
+}
+
+.stat-icon-small {
+  font-size: 16px;
+  color: #9f7aea;
+  background: rgba(79, 91, 255, 0.1);
+  padding: 8px;
+  border-radius: 12px;
+}
+
+.stat-block-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-block-label {
+  font-size: 9px;
+  color: #9e9e9e;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-block-value {
+  font-size: 16px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #fff, #e0e0e0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 30px;
+  background: rgba(79, 91, 255, 0.2);
 }
 
 .section {
@@ -191,7 +248,7 @@ input:checked + .power-slider i {
   border-radius: 20px;
   padding: 16px;
   margin-bottom: 16px;
-  border: 1px solid rgba(229, 57, 53, 0.15);
+  border: 1px solid rgba(79, 91, 255, 0.15);
 }
 
 .section-header {
@@ -202,7 +259,7 @@ input:checked + .power-slider i {
 }
 
 .section-header i {
-  color: #E53935;
+  color: #9f7aea;
   font-size: 14px;
 }
 
@@ -217,27 +274,28 @@ input:checked + .power-slider i {
   justify-content: space-between;
   align-items: center;
   padding-top: 8px;
-  border-top: 1px solid rgba(229, 57, 53, 0.2);
+  border-top: 1px solid rgba(79, 91, 255, 0.2);
 }
 
 .footer-btn {
   background: transparent;
-  border: 1px solid rgba(229, 57, 53, 0.2);
+  border: 1px solid rgba(79, 91, 255, 0.2);
   width: 36px;
   height: 36px;
   border-radius: 12px;
-  color: #E53935;
+  color: #9f7aea;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: 0.2s;
+  font-size: 14px;
 }
 
 .footer-btn:hover {
-  background: rgba(229, 57, 53, 0.1);
+  background: rgba(79, 91, 255, 0.1);
   color: #fff;
-  border-color: #E53935;
+  border-color: #4f5bff;
 }
 
 .version {
@@ -249,4 +307,10 @@ input:checked + .power-slider i {
   padding: 6px 12px;
   background: #1e1e28;
   border-radius: 20px;
+  border: 1px solid rgba(79, 91, 255, 0.1);
+}
+
+.version i {
+  font-size: 10px;
+  color: #9f7aea;
 }
