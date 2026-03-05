@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', async () => {
+  console.log('Popup загружен');
+
   // Загружаем данные
   const data = await chrome.storage.local.get(['enabled', 'blockedCount', 'whitelist', 'blacklist']);
+  console.log('Загруженные данные:', data);
 
   // Переключатель
   const toggle = document.getElementById('toggle-blocking');
@@ -95,6 +98,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const domain = e.currentTarget.dataset.domain;
         await chrome.runtime.sendMessage({ action: 'removeFromBlacklist', domain });
         loadBlacklist();
+        loadWhitelist(); // Добавлено обновление белого списка
       });
     });
   }
@@ -131,6 +135,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const site = e.currentTarget.dataset.site;
         await chrome.runtime.sendMessage({ action: 'removeFromWhitelist', site });
         loadWhitelist();
+        loadBlacklist(); // Добавлено обновление черного списка
       });
     });
   }
@@ -140,11 +145,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     const input = document.getElementById('blacklist-domain');
     const domain = input.value.trim().toLowerCase();
 
-    if (!domain) return;
+    if (!domain) {
+      alert('Введите домен');
+      return;
+    }
 
-    await chrome.runtime.sendMessage({ action: 'addToBlacklist', domain });
-    input.value = '';
-    loadBlacklist();
+    try {
+      const response = await chrome.runtime.sendMessage({ action: 'addToBlacklist', domain });
+      if (response?.success) {
+        input.value = '';
+        await loadBlacklist();
+        await loadWhitelist();
+      } else {
+        alert('Домен уже есть в списке');
+      }
+    } catch (error) {
+      console.error('Ошибка:', error);
+      alert('Ошибка при добавлении');
+    }
   });
 
   // Добавление в белый список
@@ -152,11 +170,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     const input = document.getElementById('whitelist-domain');
     const site = input.value.trim().toLowerCase();
 
-    if (!site) return;
+    if (!site) {
+      alert('Введите сайт');
+      return;
+    }
 
-    await chrome.runtime.sendMessage({ action: 'addToWhitelist', site });
-    input.value = '';
-    loadWhitelist();
+    try {
+      const response = await chrome.runtime.sendMessage({ action: 'addToWhitelist', site });
+      if (response?.success) {
+        input.value = '';
+        await loadWhitelist();
+        await loadBlacklist();
+      } else {
+        alert('Сайт уже есть в списке');
+      }
+    } catch (error) {
+      console.error('Ошибка:', error);
+      alert('Ошибка при добавлении');
+    }
   });
 
   // Анализ сайта
@@ -164,49 +195,57 @@ document.addEventListener('DOMContentLoaded', async () => {
     const resultsDiv = document.getElementById('analyze-results');
     resultsDiv.innerHTML = '<div class="empty-rules"><i class="fas fa-spinner fa-spin"></i><span>Анализ...</span></div>';
 
-    // Получаем текущую вкладку
-    const tab = await chrome.runtime.sendMessage({ action: 'getCurrentTabInfo' });
+    try {
+      const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
-    // Запускаем скрипт анализа
-    chrome.scripting.executeScript({
-      target: { tabId: (await chrome.tabs.query({ active: true, currentWindow: true }))[0].id },
-      func: () => {
-        const domains = new Set();
+      if (!tab) {
+        resultsDiv.innerHTML = '<div class="empty-rules">Не удалось получить текущую вкладку</div>';
+        return;
+      }
 
-        // Собираем все iframe
-        document.querySelectorAll('iframe').forEach(iframe => {
-          if (iframe.src) {
+      const results = await chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        func: () => {
+          const domains = new Set();
+
+          document.querySelectorAll('iframe').forEach(iframe => {
+            if (iframe.src) {
+              try {
+                const url = new URL(iframe.src);
+                domains.add(url.hostname);
+              } catch (e) { }
+            }
+          });
+
+          document.querySelectorAll('script[src]').forEach(script => {
             try {
-              const url = new URL(iframe.src);
+              const url = new URL(script.src);
               domains.add(url.hostname);
             } catch (e) { }
-          }
-        });
+          });
 
-        // Собираем все скрипты
-        document.querySelectorAll('script[src]').forEach(script => {
-          try {
-            const url = new URL(script.src);
-            domains.add(url.hostname);
-          } catch (e) { }
-        });
+          return Array.from(domains);
+        }
+      });
 
-        return Array.from(domains);
-      }
-    }, (results) => {
       const domains = results[0]?.result || [];
+      console.log('Найденные домены:', domains);
 
-      // Рекламные ключевые слова
-      const adKeywords = ['ad', 'doubleclick', 'googlead', 'yandex', 'adfox', 'criteo'];
+      const adKeywords = ['ad', 'doubleclick', 'googlead', 'yandex', 'adfox', 'criteo', 'amazon-adsystem'];
+
+      if (domains.length === 0) {
+        resultsDiv.innerHTML = '<div class="empty-rules">Ничего не найдено</div>';
+        return;
+      }
 
       let html = '';
       domains.forEach(domain => {
         const isAd = adKeywords.some(keyword => domain.includes(keyword));
         html += `
-          <div class="rule-item" style="border-color: ${isAd ? '#ef4444' : '#4f5bff'}">
+          <div class="rule-item" style="border-color: ${isAd ? '#ef4444' : '#4f5bff'}; margin-bottom: 8px;">
             <div class="rule-domain" style="flex: 1;">
               <i class="fas ${isAd ? 'fa-exclamation-triangle' : 'fa-globe'}" style="color: ${isAd ? '#ef4444' : '#9f7aea'};"></i>
-              <span>${domain}</span>
+              <span style="font-size: 11px;">${domain}</span>
             </div>
             ${isAd ? `
               <button class="add-to-blacklist" data-domain="${domain}" style="
@@ -217,6 +256,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 height: 28px;
                 border-radius: 8px;
                 cursor: pointer;
+                margin-left: 8px;
               ">
                 <i class="fas fa-ban"></i>
               </button>
@@ -225,25 +265,33 @@ document.addEventListener('DOMContentLoaded', async () => {
         `;
       });
 
-      resultsDiv.innerHTML = html || '<div class="empty-rules">Ничего не найдено</div>';
+      resultsDiv.innerHTML = html;
 
-      // Добавляем обработчики для кнопок
       document.querySelectorAll('.add-to-blacklist').forEach(btn => {
         btn.addEventListener('click', async (e) => {
+          e.stopPropagation();
           const domain = e.currentTarget.dataset.domain;
           await chrome.runtime.sendMessage({ action: 'addToBlacklist', domain });
           alert(`Домен ${domain} добавлен в черный список`);
+          await loadBlacklist();
           e.currentTarget.remove();
         });
       });
-    });
+
+    } catch (error) {
+      console.error('Ошибка анализа:', error);
+      resultsDiv.innerHTML = '<div class="empty-rules">Ошибка анализа. Попробуйте обновить страницу.</div>';
+    }
   });
 
   // Сброс статистики
   document.getElementById('reset-stats').addEventListener('click', async () => {
-    await chrome.storage.local.set({ blockedCount: 0 });
-    chrome.action.setBadgeText({ text: '' });
-    document.getElementById('blocked-count').textContent = '0';
+    try {
+      await chrome.runtime.sendMessage({ action: 'resetStats' });
+      document.getElementById('blocked-count').textContent = '0';
+    } catch (error) {
+      console.error('Ошибка сброса:', error);
+    }
   });
 
   // Enter в полях ввода
@@ -256,6 +304,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // Загружаем списки
-  loadBlacklist();
-  loadWhitelist();
+  await loadBlacklist();
+  await loadWhitelist();
+
+  console.log('Popup готов');
 });
