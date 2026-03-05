@@ -10,6 +10,7 @@
 
 <body>
   <div class="glass-container">
+    <!-- Шапка -->
     <div class="header">
       <div class="logo-wrapper">
         <div class="logo-glow"></div>
@@ -22,6 +23,7 @@
       <div class="status-indicator" id="status-indicator"></div>
     </div>
 
+    <!-- Переключатель -->
     <div class="power-card">
       <div class="power-switch-container">
         <span class="power-label">Защита</span>
@@ -35,6 +37,7 @@
       <div class="power-stats" id="status-text">Активен</div>
     </div>
 
+    <!-- Статистика -->
     <div class="stats-row">
       <div class="stat-block">
         <i class="fas fa-ban stat-icon-small"></i>
@@ -48,28 +51,83 @@
         <i class="fas fa-shield-alt stat-icon-small"></i>
         <div class="stat-block-info">
           <span class="stat-block-label">Правил</span>
-          <span class="stat-block-value" id="rules-count">7</span>
+          <span class="stat-block-value" id="rules-count">5</span>
         </div>
       </div>
     </div>
 
-    <div class="section">
-      <div class="section-header">
-        <i class="fas fa-globe"></i>
-        <h3>Статистика блокировок</h3>
-      </div>
-      <p style="color: #ccc; font-size: 12px; margin: 0;">
-        Всего заблокировано элементов: <span id="total-blocked">0</span>
-      </p>
+    <!-- Вкладки -->
+    <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+      <button id="tab-blacklist" class="footer-btn"
+        style="flex: 1; width: auto; background: rgba(79, 91, 255, 0.2);">Черный список</button>
+      <button id="tab-whitelist" class="footer-btn" style="flex: 1; width: auto;">Белый список</button>
+      <button id="tab-analyze" class="footer-btn" style="flex: 1; width: auto;">Анализ</button>
     </div>
 
+    <!-- Черный список (по умолчанию виден) -->
+    <div id="blacklist-section" class="section">
+      <div class="section-header">
+        <i class="fas fa-ban"></i>
+        <h3>Черный список (блокировать)</h3>
+      </div>
+      <div class="domain-input-container">
+        <i class="fas fa-globe input-icon"></i>
+        <input type="text" id="blacklist-domain" placeholder="example.com" class="domain-input">
+        <button id="add-blacklist" class="add-btn">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+      <div id="blacklist-items" class="rules-list" style="max-height: 120px; margin-top: 10px;">
+        <!-- Сюда будут добавляться элементы -->
+      </div>
+    </div>
+
+    <!-- Белый список (скрыт по умолчанию) -->
+    <div id="whitelist-section" class="section" style="display: none;">
+      <div class="section-header">
+        <i class="fas fa-check-circle"></i>
+        <h3>Белый список (не трогать)</h3>
+      </div>
+      <div class="domain-input-container">
+        <i class="fas fa-globe input-icon"></i>
+        <input type="text" id="whitelist-domain" placeholder="youtube.com" class="domain-input">
+        <button id="add-whitelist" class="add-btn">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+      <div id="whitelist-items" class="rules-list" style="max-height: 120px; margin-top: 10px;">
+        <!-- Сюда будут добавляться элементы -->
+      </div>
+    </div>
+
+    <!-- Анализ сайта (скрыт по умолчанию) -->
+    <div id="analyze-section" class="section" style="display: none;">
+      <div class="section-header">
+        <i class="fas fa-search"></i>
+        <h3>Анализ текущего сайта</h3>
+      </div>
+      <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+        <button id="analyze-button" class="footer-btn" style="flex: 1; width: auto; padding: 10px;">
+          <i class="fas fa-microscope"></i> Найти рекламу
+        </button>
+      </div>
+      <div id="analyze-results" class="rules-list" style="max-height: 200px;">
+        <!-- Сюда будут добавляться результаты анализа -->
+        <div class="empty-rules">
+          <i class="fas fa-info-circle"></i>
+          <span>Нажмите "Найти рекламу"</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Футер -->
     <div class="footer">
-      <button id="open-settings" class="footer-btn">
-        <i class="fas fa-cog"></i>
+      <button id="reset-stats" class="footer-btn">
+        <i class="fas fa-undo"></i>
       </button>
       <div class="version">
         <i class="fas fa-code-branch"></i>
-        <span>1.1</span>
+        <span>1.2</span>
       </div>
     </div>
   </div>
