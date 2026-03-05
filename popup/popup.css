@@ -242,3 +242,232 @@ input:checked + .power-slider i {
   height: 30px;
   background: rgba(79, 91, 255, 0.2);
 }
+
+.section {
+  background: #14141c;
+  border-radius: 20px;
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(79, 91, 255, 0.15);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.section-header i {
+  color: #9f7aea;
+  font-size: 14px;
+}
+
+.section-header h3 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.domain-input-container {
+  display: flex;
+  align-items: center;
+  background: #1e1e28;
+  border-radius: 14px;
+  padding: 2px 2px 2px 14px;
+  border: 1px solid rgba(79, 91, 255, 0.2);
+}
+
+.domain-input-container:focus-within {
+  border-color: #4f5bff;
+  box-shadow: 0 0 0 2px rgba(79, 91, 255, 0.2);
+}
+
+.input-icon {
+  color: #9f7aea;
+  font-size: 14px;
+  margin-right: 8px;
+}
+
+.domain-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 10px 0;
+  color: white;
+  font-size: 13px;
+  outline: none;
+}
+
+.domain-input::placeholder {
+  color: #5f5f7f;
+  font-size: 13px;
+}
+
+.add-btn {
+  background: linear-gradient(135deg, #4f5bff, #9f7aea);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 0 5px 15px -5px rgba(79, 91, 255, 0.6);
+}
+
+.add-btn:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.rules-list {
+  max-height: 160px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #4f5bff #1e1e28;
+  padding-right: 4px;
+}
+
+.rules-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.rules-list::-webkit-scrollbar-track {
+  background: #1e1e28;
+  border-radius: 4px;
+}
+
+.rules-list::-webkit-scrollbar-thumb {
+  background: #4f5bff;
+  border-radius: 4px;
+}
+
+.rule-item {
+  background: #1e1e28;
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid rgba(79, 91, 255, 0.1);
+  animation: slideIn 0.2s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.rule-item:hover {
+  background: #262632;
+  border-color: rgba(79, 91, 255, 0.3);
+}
+
+.rule-domain {
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rule-domain i {
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.remove-rule {
+  background: rgba(239, 68, 68, 0.15);
+  border: none;
+  color: #ef4444;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.remove-rule:hover {
+  background: rgba(239, 68, 68, 0.3);
+}
+
+.empty-rules {
+  padding: 16px;
+  text-align: center;
+  color: #6f6f8f;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #1e1e28;
+  border-radius: 12px;
+  border: 1px dashed rgba(79, 91, 255, 0.3);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 8px;
+  border-top: 1px solid rgba(79, 91, 255, 0.2);
+}
+
+.footer-btn {
+  background: transparent;
+  border: 1px solid rgba(79, 91, 255, 0.2);
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  color: #9f7aea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 14px;
+}
+
+.footer-btn:hover {
+  background: rgba(79, 91, 255, 0.1);
+  color: #fff;
+  border-color: #4f5bff;
+}
+
+.version {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #6f6f8f;
+  font-size: 11px;
+  padding: 6px 12px;
+  background: #1e1e28;
+  border-radius: 20px;
+  border: 1px solid rgba(79, 91, 255, 0.1);
+}
+
+.version i {
+  font-size: 10px;
+  color: #9f7aea;
+}
